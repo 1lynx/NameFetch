@@ -1,14 +1,12 @@
 var count = 0;
 
-
-
-
 (function() {
     
-
-
     var array = [];
-    request = $.ajax({
+    var div = document.getElementById("textDiv");  
+    var session = [];
+    
+    $.ajax({
         url: "python/getpython.php",
         type: "post",
         data: {data : "dataString"},
@@ -20,12 +18,6 @@ var count = 0;
 
             }
     });
-
-
-    var div = document.getElementById("textDiv");  
-    var session = [];
-    
-
 
     function send_request() {
         if (!(session[0]))
@@ -41,9 +33,7 @@ var count = 0;
             console.log(stringSession);
             div.textContent = "nom choisi"
         }
-
     }
-
 
 	yes_button.addEventListener('click', function(ev)
     {
