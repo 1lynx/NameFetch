@@ -1,27 +1,49 @@
 var count = 0;
 
+
+
+
 (function() {
-	
-	var array = ["Colin","Martin","Benjamin","Remy","Rudy","Flo","Camille","Sarah","Etienne"];
-	var div = document.getElementById("textDiv");  
-	div.textContent = array[count]; 
-	var session = [];
+    
 
-	function send_request() {
-		if (!(session[0]))
-		{
-			div.textContent = "pas de nom choisi"
-		}
-		else {
-			var stringSession = session.toString();
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'session_post.php', true);
-	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	        xhr.send('data=' + stringSession);
-			div.textContent = "nom choisi"
-		}
 
-	}
+    var array = [];
+    request = $.ajax({
+        url: "python/getpython.php",
+        type: "post",
+        data: {data : "dataString"},
+        cache: false,
+        success: function(result) { //just add the result as argument in success anonymous function
+                var returnedvalue = result;
+                array = returnedvalue.split(",");
+                div.textContent = array[count]; 
+
+            }
+    });
+
+
+    var div = document.getElementById("textDiv");  
+    var session = [];
+    
+
+
+    function send_request() {
+        if (!(session[0]))
+        {
+            div.textContent = "pas de nom choisi"
+        }
+        else {
+            var stringSession = session.toString();
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'session_post.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('data=' + stringSession);
+            console.log(stringSession);
+            div.textContent = "nom choisi"
+        }
+
+    }
+
 
 	yes_button.addEventListener('click', function(ev)
     {
@@ -43,10 +65,6 @@ var count = 0;
     		div.textContent = "fin"; 
     	}
 
-    	console.log(session.length);
-
-
-
     }, false);
 
     no_button.addEventListener('click', function(ev)
@@ -65,9 +83,14 @@ var count = 0;
     	{
     		div.textContent = "fin"; 
     	}
-    	console.log(session); 
-    	console.log(session.length);
-
 
     }, false);
+
+    restart_button.addEventListener('click', function(ev)
+    {
+        ev.preventDefault();
+        window.location.reload();
+
+    }, false);
+
 })();
