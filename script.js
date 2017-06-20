@@ -13,7 +13,7 @@ var count = 0;
         type: "post",
         data: {data : "dataString"},
         cache: false,
-        success: function(result) { //just add the result as argument in success anonymous function
+        success: function(result) {
                 var returnedvalue = result;
                 array = returnedvalue.split(",");
                 div.textContent = array[count]; 
